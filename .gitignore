@@ -1,0 +1,5 @@
+# Temp/scratch Python scripts
+*.py
+*.ps1
+scratch/
+images_backup/
