@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prakaram - Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    /* Lightbox Styles */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox__close {
+      position: absolute;
+      top: 2rem; right: 3rem;
+      color: white; font-size: 2.5rem; cursor: pointer;
+      background: none; border: none; z-index: 10;
+    }
+    .lightbox__nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      color: white; font-size: 3rem; cursor: pointer;
+      background: none; border: none; padding: 1rem;
+      z-index: 10; opacity: 0.7; transition: opacity 0.3s;
+    }
+    .lightbox__nav:hover { opacity: 1; }
+    .lightbox__nav--prev { left: 2rem; }
+    .lightbox__nav--next { right: 2rem; }
+    .lightbox__content {
+      max-width: 90%; max-height: 90vh;
+      position: relative;
+    }
+    .lightbox__img {
+      max-width: 100%; max-height: 90vh;
+      object-fit: contain;
+      user-select: none;
+    }
+    .gallery-page-header {
+      padding: 110px 0 20px;
+      text-align: center;
+    }
+    .gallery__item { cursor: pointer; }
+    
+    /* Permanent Active Indicator for Gallery Link on Gallery Page */
+    .header__nav-link[href="gallery.html"],
+    .mobile-menu__link[href="gallery.html"] {
+      color: #101C36 !important;
+      font-weight: 600 !important;
+      opacity: 1 !important;
+    }
+    .header__nav-link[href="gallery.html"]::after {
+      width: 100% !important;
+      background: #101C36 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header header--scrolled" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo"><img src="images/logo1.png" alt="Prakaram" style="height: 90px; width: auto; transform: scaleX(1.15); transform-origin: left;"></a>
+      <nav class="header__nav" id="desktopNav">
+        <a href="index.html" class="header__nav-link">Home</a>
+        <a href="index.html#about" class="header__nav-link">About</a>
+        <a href="index.html#portfolio" class="header__nav-link">Celebrations</a>
+        <a href="index.html#services" class="header__nav-link">Services</a>
+        <a href="gallery.html" class="header__nav-link active">Gallery</a>
+        <a href="index.html#contact" class="header__nav-link">Contact</a>
+      </nav>
+      <button class="header__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span ></span>
+        <span ></span>
+        <span ></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================== MOBILE MENU ===================== -->
+  <div class="mobile-menu" id="mobileMenu">
+      <a href="#" class="mobile-menu__link" onclick="closeMobileMenu()" style="font-size: 2.5rem;">&times;</a>
+      <a href="index.html" class="mobile-menu__link" onclick="closeMobileMenu()">Home</a>
+      <a href="index.html#about" class="mobile-menu__link" onclick="closeMobileMenu()">About</a>
+      <a href="index.html#portfolio" class="mobile-menu__link" onclick="closeMobileMenu()">Celebrations</a>
+      <a href="index.html#services" class="mobile-menu__link" onclick="closeMobileMenu()">Services</a>
+      <a href="gallery.html" class="mobile-menu__link active" onclick="closeMobileMenu()">Gallery</a>
+      <a href="index.html#contact" class="mobile-menu__link" onclick="closeMobileMenu()">Contact</a>
+    <div class="mobile-menu__socials">
+        <a href="https://www.instagram.com/prakaram_productions?stkn=Z3ZpZDZzYXFkZml6" target="_blank">Instagram</a>
+      </div>
+  </div>
+
+
+  <main>
+    <section class="gallery-page-header">
+      <div class="container">
+        <h1 class="gallery__title"> Gallery</h1>
+      </div>
+    </section>
+
+    <section class="gallery section">
+      <div class="container container--wide">
+        <div class="gallery__grid">
+          <div class="gallery__item" onclick="openLightbox(0)">
+            <img src="images/compressed/ChatGPT Image Apr 27, 2026, 02_58_51 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(1)">
+            <img src="images/compressed/ChatGPT Image Jun 27, 2026, 01_03_00 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(2)">
+            <img src="images/compressed/ChatGPT Image Jun 27, 2026, 01_05_59 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(3)">
+            <img src="images/compressed/ChatGPT Image Jun 27, 2026, 12_50_26 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(4)">
+            <img src="images/compressed/ChatGPT Image Jun 27, 2026, 12_53_08 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(5)">
+            <img src="images/compressed/ChatGPT Image May 20, 2026, 04_09_41 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(6)">
+            <img src="images/compressed/ChatGPT Image May 20, 2026, 04_26_41 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(7)">
+            <img src="images/compressed/ChatGPT Image May 21, 2026, 10_32_10 AM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(8)">
+            <img src="images/compressed/Gemini_Generated_Image_1hkrp61hkrp61hkr.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(9)">
+            <img src="images/compressed/Gemini_Generated_Image_3vabs23vabs23vab.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(10)">
+            <img src="images/compressed/Gemini_Generated_Image_68uql768uql768uq.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(11)">
+            <img src="images/compressed/Gemini_Generated_Image_9jtwed9jtwed9jtw.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(12)">
+            <img src="images/compressed/Gemini_Generated_Image_c5zftnc5zftnc5zf.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(13)">
+            <img src="images/compressed/Gemini_Generated_Image_hkfnefhkfnefhkfn.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(14)">
+            <img src="images/compressed/b.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(15)">
+            <img src="images/compressed/Gemini_Generated_Image_mmrzwxmmrzwxmmrz.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(16)">
+            <img src="images/compressed/Gemini_Generated_Image_niueltniueltniue.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(17)">
+            <img src="images/compressed/Gemini_Generated_Image_o5t5k9o5t5k9o5t5.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(18)">
+            <img src="images/compressed/a.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(19)">
+            <img src="images/compressed/Gemini_Generated_Image_te2gcste2gcste2g.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(20)">
+            <img src="images/compressed/Gemini_Generated_Image_uf7hbtuf7hbtuf7h.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(21)">
+            <img src="images/compressed/IMG_9296.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(22)">
+            <img src="images/compressed/IMG_1127.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(23)">
+            <img src="images/compressed/IMG_1388.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(24)">
+            <img src="images/compressed/IMG_1389.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(25)">
+            <img src="images/compressed/IMG_1697.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(26)">
+            <img src="images/compressed/IMG_1701.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(27)">
+            <img src="images/compressed/IMG_1702.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(28)">
+            <img src="images/compressed/IMG_7513.JPG.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(29)">
+            <img src="images/compressed/JYO00274.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(30)">
+            <img src="images/compressed/JYO03928.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(31)">
+            <img src="images/compressed/JYO06325.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(32)">
+            <img src="images/compressed/prakaram_productions_1752057753_3672849102209065883_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(33)">
+            <img src="images/compressed/prakaram_productions_1752057753_3672849102209197900_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(34)">
+            <img src="images/compressed/prakaram_productions_1752057753_3672849102217525818_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(35)">
+            <img src="images/compressed/prakaram_productions_1752057753_3672849102351659708_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(36)">
+            <img src="images/compressed/prakaram_productions_1755078697_3698190613045916071_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(37)">
+            <img src="images/compressed/prakaram_productions_1755078697_3698190613180123533_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(38)">
+            <img src="images/compressed/prakaram_productions_1755078697_3698190613180303009_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(39)">
+            <img src="images/compressed/prakaram_productions_1755078697_3698190613364703796_67346280942.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(40)">
+            <img src="images/compressed/SRPR_1.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(41)">
+            <img src="images/compressed/SRPR_10.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(42)">
+            <img src="images/compressed/c.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(43)">
+            <img src="images/compressed/SRPR_2.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(44)">
+            <img src="images/compressed/d.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(45)">
+            <img src="images/compressed/SRPR_7.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(46)">
+            <img src="images/compressed/IMG_7040.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(47)">
+            <img src="images/compressed/WhatsApp Image 2026-08-25 at 5.44.32 PM.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(48)">
+            <img src="images/grandweddingreception.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(49)">
+            <img src="images/compressed/e.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(50)">
+            <img src="images/compressed/f.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(51)">
+            <img src="images/compressed/Floral & Ambiance.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(52)">
+            <img src="images/compressed/g.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(53)">
+            <img src="images/compressed/h.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(54)">
+            <img src="images/compressed/haldi.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(55)">
+            <img src="images/compressed/IMG_6757.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(56)">
+            <img src="images/compressed/IMG_6759.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(57)">
+            <img src="images/compressed/IMG_7510.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(58)">
+            <img src="images/compressed/IMG_0965.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(59)">
+            <img src="images/compressed/IMG_0984.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(60)">
+            <img src="images/compressed/IMG_0985.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(61)">
+            <img src="images/compressed/IMG_0997.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(62)">
+            <img src="images/compressed/IMG_0998.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(63)">
+            <img src="images/compressed/IMG_1114.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(64)">
+            <img src="images/compressed/IMG_1115.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(65)">
+            <img src="images/compressed/IMG_1116.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(66)">
+            <img src="images/compressed/IMG_1127.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(67)">
+            <img src="images/compressed/IMG_1176.jpeg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(68)">
+            <img src="images/compressed/IMG_1504.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(69)">
+            <img src="images/compressed/IMG_1507.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(70)">
+            <img src="images/compressed/IMG_1698.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(71)">
+            <img src="images/compressed/IMG_2680.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(72)">
+            <img src="images/compressed/IMG_2681.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(73)">
+            <img src="images/compressed/IMG_2682.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(74)">
+            <img src="images/compressed/IMG_2684.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(75)">
+            <img src="images/compressed/IMG_2685.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(76)">
+            <img src="images/compressed/IMG_2686.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(77)">
+            <img src="images/compressed/IMG_5732.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(78)">
+            <img src="images/compressed/IMG_5818.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(79)">
+            <img src="images/compressed/IMG_9297.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(80)">
+            <img src="images/compressed/IMG_7075.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(81)">
+            <img src="images/compressed/IMG_7073.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(82)">
+            <img src="images/compressed/IMG_7045.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(83)">
+            <img src="images/compressed/IMG_6748.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(84)">
+            <img src="images/compressed/IMG_6749.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(85)">
+            <img src="images/compressed/IMG_7043.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(86)">
+            <img src="images/compressed/IMG_6753.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+          <div class="gallery__item" onclick="openLightbox(87)">
+            <img src="images/compressed/IMG_6754.jpg" alt="Gallery Image" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" onclick="prevImage()">&#10094;</button>
+    <div class="lightbox__content">
+      <img src="" alt="Full size" class="lightbox__img" id="lightboxImg">
+    </div>
+    <button class="lightbox__nav lightbox__nav--next" onclick="nextImage()">&#10095;</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <p class="footer__brand-name">Anirveda Prakaram Productions & Events Pvt.Ltd.</p>
+          <p class="footer__brand-tagline">Dedicated to crafting unforgettable celebrations. We bring vision, precision, and artistry together to design experiences that reflect your individuality and elegance.</p>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Navigate</p>
+          <div class="footer__links">
+            <a href="index.html#about">About</a>
+            <a href="index.html#portfolio">Celebrations</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#contact">Contact</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Connect</p>
+          <div class="footer__links">
+            <a href="https://www.instagram.com/prakaram_productions?stkn=Z3ZpZDZzYXFkZml6" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.facebook.com/people/Prakaram-Productions/61587802303752/" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://wa.me/919900863337" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Reach Us</p>
+          <div class="footer__links">
+            <a href="mailto:prakaramproductions26@gmail.com">prakaramproductions26@gmail.com</a>
+            <a href="tel:+919900863337">+91 99008 63337</a>
+            <span style="color: var(--color-gray-500); font-size: var(--fs-small);">Anirveda Prakaram Productions &amp; Events Pvt.Ltd.<br>#36, Sidhi, 1st Floor, 5th Main, 4th Cross, Gaurav Nagar, JP Nagar 7th Phase, Bengaluru, Karnataka 560078</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">&copy; 2024 Anirveda Prakaram Productions & Events Pvt.Ltd. All Rights Reserved.</p>
+        <div class="footer__socials" style="display: flex; gap: 1.5rem; align-items: center;">
+            <a href="https://www.instagram.com/prakaram_productions?stkn=Z3ZpZDZzYXFkZml6" target="_blank" rel="noopener" style="display: inline-block;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/people/Prakaram-Productions/61587802303752/" target="_blank" rel="noopener" style="display: inline-block;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://wa.me/919900863337" target="_blank" rel="noopener" style="display: inline-block;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let images = [];
+    let currentIndex = 0;
+
+    function initGalleryImages() {
+      const imgElements = document.querySelectorAll('.gallery__grid .gallery__item img');
+      if (imgElements.length > 0) {
+        images = Array.from(imgElements).map(img => img.getAttribute('src'));
+      }
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    function openLightbox(index) {
+      if (images.length === 0) initGalleryImages();
+      currentIndex = index;
+      updateLightboxImage();
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function prevImage() {
+      if (images.length === 0) initGalleryImages();
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+      updateLightboxImage();
+    }
+
+    function nextImage() {
+      if (images.length === 0) initGalleryImages();
+      currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+      updateLightboxImage();
+    }
+
+    function updateLightboxImage() {
+      if (images[currentIndex]) {
+        lightboxImg.src = images[currentIndex];
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initGalleryImages);
+    window.addEventListener('load', initGalleryImages);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    });
+
+    // Close on click outside image
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('lightbox__content')) {
+        closeLightbox();
+      }
+    });
+
+    // ---- Header scroll effect (Always scrolled in gallery) ----
+
+    // Removed to keep header permanently visible
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      });
+    }
+
+    function closeMobileMenu() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Highlight Gallery nav link on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.header__nav-link[href="gallery.html"], .mobile-menu__link[href="gallery.html"]').forEach(el => {
+        el.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
